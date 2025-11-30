@@ -1,50 +1,32 @@
 package br.edu.ifsp.kanban.controller.resource;
-/*
-import br.edu.ifsp.kanban.controller.dto.request.LoginRequestDto;
-import br.edu.ifsp.kanban.controller.dto.response.TokenResponseDto;
-import br.edu.ifsp.kanban.controller.dto.response.UsuarioResponseDto;
-import br.edu.ifsp.kanban.service.AuthService;
-import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import br.edu.ifsp.kanban.controller.dto.request.AuthRequestDto;
+import br.edu.ifsp.kanban.controller.dto.response.AuthResponseDto;
+import br.edu.ifsp.kanban.model.entity.Usuario;
+import br.edu.ifsp.kanban.repository.UsuarioRepository;
+import br.edu.ifsp.kanban.security.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService authService;
+    private final UsuarioRepository usuarioRepository;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public TokenResponseDto login(@RequestBody LoginRequestDto dto) {
-        return authService.login(dto);
+    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto dto) {
+        Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new RuntimeException("Usuário ou senha inválidos"));
+
+        if (!usuario.getSenha().equals(dto.getSenha())) {
+            throw new RuntimeException("Usuário ou senha inválidos");
+        }
+
+        String token = jwtUtil.gerarToken(usuario.getEmail());
+        return ResponseEntity.ok(new AuthResponseDto(token));
     }
-
-
-    @GetMapping("/me")
-    public UsuarioResponseDto getMe(@AuthenticationPrincipal String email) {
-        UsuarioResponseDto dto = new UsuarioResponseDto();
-        dto.setEmail(email);
-        return dto;
-        //return authService.getMe(email);
-    }
-
-    @GetMapping("/me")
-    public Map<String, String> getMe(@AuthenticationPrincipal String email) {
-        Map<String, String> res = new HashMap<>();
-        res.put("email", email);
-        return res;
-    }
-
-    @GetMapping("/teste")
-    public String getTeste() {
-        return "Teste";
-    }
-
 }
-*/

@@ -43,6 +43,15 @@ public class UsuarioService {
         );
     }
 
+    public UsuarioResponseDto buscarPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        return UsuarioDtoFactory.canonicoParaDto(
+                UsuarioCanonicalFactory.entityToCanonico(usuario)
+        );
+    }
+
     public UsuarioResponseDto atualizar(Integer id, UsuarioRequestDto dto) {
 
         Usuario usuario = usuarioRepository.findById(id)

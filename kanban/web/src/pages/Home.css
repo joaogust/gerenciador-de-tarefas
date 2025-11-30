@@ -1,0 +1,161 @@
+/* src/pages/Home.css */
+
+/* --- Layout Principal --- */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa 100% da altura da tela */
+    background-color: #212529; /* Fundo Escuro Original */
+    color: #e9ecef; /* Texto claro (não branco puro para não cansar a vista) */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Conteúdo (Meio da página) --- */
+.main-content {
+    flex: 1; /* Empurra o footer para baixo */
+    padding: 2rem;
+    max-width: 1280px; /* Limita a largura em monitores gigantes */
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Cabeçalho da Seção (Titulo + Botão) --- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Permite quebrar linha em celular */
+    gap: 1rem;
+}
+
+.section-header h2 {
+    font-weight: 600;
+    color: #f8f9fa;
+    margin: 0;
+}
+
+/* --- Botão Principal --- */
+.btn-primary-custom {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary-custom:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* --- Grid de Cards (A mágica da responsividade) --- */
+.projects-grid {
+    display: grid;
+    /* Cria colunas que têm no mínimo 300px e no máximo 1fr (fração disponível) */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Estilo do Card --- */
+.note-card {
+    background-color: #2b3035; /* Um pouco mais claro que o fundo */
+    border: 1px solid #495057;
+    border-radius: 8px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    border-color: #0d6efd; /* Borda azul ao passar o mouse */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.note-card h5 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.note-preview {
+    color: #adb5bd;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    /* Limita a 3 linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    /* Recomendado pelo VSCode (mesmo que ainda não seja amplamente suportado) */
+    line-clamp: 3;
+}
+
+.card-footer-info {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #373b3e;
+    font-size: 0.8rem;
+    color: #6c757d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Empty State (Quando não tem páginas) --- */
+.empty-state {
+    grid-column: 1 / -1; /* Ocupa toda a largura do grid */
+    border: 2px dashed #495057;
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: rgba(43, 48, 53, 0.3);
+    color: #adb5bd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.empty-state:hover {
+    border-color: #6c757d;
+    background-color: rgba(43, 48, 53, 0.5);
+}
+
+.empty-icon {
+    font-size: 3rem;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+/* --- Ajuste Mobile --- */
+@media (max-width: 576px) {
+    .main-content {
+        padding: 1rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-primary-custom {
+        width: 100%; /* Botão largura total no celular */
+        justify-content: center;
+    }
+}

@@ -1,0 +1,322 @@
+/* src/pages/Kanban.css */
+
+.kanban-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #212529; /* Fundo Escuro padrão */
+  color: #e9ecef;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Evita scroll na página inteira, apenas nas colunas */
+}
+
+/* --- Overlay para fechar dropdown --- */
+.overlay-click-closer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5; /* Abaixo do header e menus, mas acima dos cards */
+}
+
+/* --- Header --- */
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: rgba(33, 37, 41, 0.95);
+  border-bottom: 1px solid #495057;
+  height: 70px;
+  position: relative;
+  z-index: 30; /* Garante que o header fique acima do dropdown */
+}
+
+.board-header h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-voltar {
+  background: none;
+  border: 1px solid #495057;
+  color: #adb5bd;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-voltar:hover {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #6c757d;
+}
+
+/* --- Área das Colunas (Scroll Horizontal e Centralização) --- */
+.columns-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  height: calc(100vh - 70px); /* Altura total menos o header */
+  padding: 1.5rem;
+  align-items: flex-start; /* Colunas alinhadas no topo */
+  
+  /* Centraliza as colunas se houver espaço */
+  justify-content: center; 
+}
+
+/* Scrollbar personalizada */
+.columns-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+.columns-wrapper::-webkit-scrollbar-thumb {
+  background: #495057;
+  border-radius: 4px;
+}
+
+/* --- Coluna (Bloco) --- */
+.kanban-column {
+  min-width: 300px;
+  width: 300px;
+  background-color: #2b3035; /* Cinza escuro */
+  border: 1px solid #373b3e;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%; /* Respeita a altura do wrapper */
+}
+
+.column-header {
+  padding: 1rem;
+  border-bottom: 1px solid #373b3e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2b3035;
+  border-radius: 8px 8px 0 0;
+}
+
+.column-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e9ecef;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-count {
+  background-color: #495057;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* --- Lista de Tarefas (Scroll Vertical) --- */
+.task-list {
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1; /* Ocupa o espaço restante */
+}
+
+.task-list::-webkit-scrollbar {
+  width: 6px;
+}
+.task-list::-webkit-scrollbar-thumb {
+  background: #495057;
+  border-radius: 3px;
+}
+
+/* Estilo para o título do Bloco */
+.task-list h4 {
+    font-size: 0.9rem;
+    color: #adb5bd;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #373b3e; /* Linha tracejada sutil */
+}
+
+/* --- Cartão da Tarefa --- */
+.kanban-card {
+  background-color: #343a40; /* Um pouco mais claro que a coluna */
+  border: 1px solid #454d55;
+  border-radius: 6px;
+  padding: 12px;
+  /* Espaço extra no topo/direita para os botões de ação */
+  padding-right: 45px;
+  padding-top: 12px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  position: relative; /* Importante para o posicionamento dos botões de ação */
+}
+
+.kanban-card:hover {
+  transform: translateY(-2px);
+  border-color: #0d6efd; /* Azul ao passar o mouse */
+}
+
+/* Garante que o conteúdo e as ações fiquem na mesma linha (conteúdo ocupa o máximo) */
+.card-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Garante que o texto da tarefa cresça, empurrando as ações para a direita */
+.card-content .card-text {
+    flex-grow: 1;
+}
+
+/* Container dos botões de ação (3 pontinhos e mover) */
+.card-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    position: absolute; /* Posicionamento no topo do card */
+    top: 8px;
+    right: 8px;
+    z-index: 10; /* Garante que fiquem acima de outros elementos do card */
+}
+
+/* Estilo Base dos Botões de Ação (Ícones) */
+.btn-action {
+    background: none;
+    border: none;
+    color: #adb5bd;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+    line-height: 1; /* Alinha o ícone */
+}
+
+.btn-action:hover {
+    color: #fff;
+    background-color: #495057;
+}
+
+/* Estilo Placeholder para Ícones (simula Font Awesome) */
+.icon-dots::before { content: '•••'; font-size: 0.9rem; font-weight: bold; }
+.icon-chevron-down::before { content: '⌄'; font-size: 1rem; } /* Símbolo para seta */
+
+/* Gira o ícone do dropdown quando estiver aberto */
+.icon-chevron-down {
+    transition: transform 0.2s;
+    display: block; /* Para permitir a rotação */
+}
+.icon-chevron-down.is-open {
+    transform: rotate(180deg);
+}
+
+/* --- Dropdown de Mover Tarefa (Menu) --- */
+.move-dropdown {
+    position: relative; /* O menu será posicionado em relação a este container */
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* Abaixo do botão */
+    right: 0;
+    margin-top: 5px; /* Pequeno espaçamento */
+    min-width: 150px;
+    background-color: #343a40; /* Cor do card, como fundo do menu */
+    border: 1px solid #454d55;
+    border-radius: 6px;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    z-index: 20; /* Garante que fique acima de tudo no card */
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu h6 {
+    margin: 0 0 5px 0;
+    padding: 0 4px;
+    color: #adb5bd;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #454d55;
+    padding-bottom: 4px;
+}
+
+.btn-dropdown-item {
+    background: none;
+    border: none;
+    text-align: left;
+    color: #e9ecef;
+    padding: 6px 4px;
+    margin-top: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    font-size: 0.85rem;
+}
+
+.btn-dropdown-item:hover {
+    background-color: #0d6efd; /* Azul para destaque no hover */
+    color: #fff;
+}
+
+/* Checkbox customizado (simples) */
+.card-content input[type="checkbox"] {
+  margin-top: 5px;
+  accent-color: #0d6efd;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #f8f9fa;
+  word-break: break-word;
+}
+
+.card-text.concluida {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+/* Botão Adicionar Tarefa */
+.add-task-container {
+  padding: 1rem 0 0; /* Ajustado padding superior */
+  border-top: 1px solid #373b3e;
+  margin-top: 10px; /* Adiciona um espaço acima do separador */
+}
+
+.btn-add-task {
+  width: 100%;
+  background: none;
+  border: 1px dashed #6c757d;
+  color: #adb5bd;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.btn-add-task:hover {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #adb5bd;
+}

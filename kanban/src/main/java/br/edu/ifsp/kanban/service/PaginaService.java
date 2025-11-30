@@ -15,8 +15,10 @@ public class PaginaService {
     public PaginaService(PaginaRepository repository) {
         this.repository = repository;
     }
+
     public Pagina buscaPorId(Integer idPagina) {
-        return repository.findById(idPagina).orElse(null);
+        return repository.findByIdWithBlocosAndTarefas(idPagina)
+                .orElse(null);
     }
 
     public PaginaCanonical buscaPaginaPorId(Integer idPagina) {
@@ -58,3 +60,4 @@ public class PaginaService {
         repository.deleteById(id);
     }
 }
+

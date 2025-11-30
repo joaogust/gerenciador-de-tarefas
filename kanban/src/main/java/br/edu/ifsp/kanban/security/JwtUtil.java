@@ -1,37 +1,33 @@
 package br.edu.ifsp.kanban.security;
-/*
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
+
+import javax.crypto.SecretKey;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    // chave fixa simples — funciona e pronto
-    private static final String SECRET = "MINHA_CHAVE_SECRETA_BEM_SIMPLES";
+    private static final SecretKey SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private static final long EXPIRATION = 1000 * 60 * 60; // 1h
 
     public String gerarToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
-                .signWith(SignatureAlgorithm.HS256, SECRET)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .signWith(SECRET)
                 .compact();
     }
 
-    public String pegarEmail(String token) {
-        return Jwts.parser()
+    public String extrairEmail(String token) {
+        return Jwts.parserBuilder()
                 .setSigningKey(SECRET)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
-
-    public boolean tokenValido(String token) {
-        try {
-            pegarEmail(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 }
-*/

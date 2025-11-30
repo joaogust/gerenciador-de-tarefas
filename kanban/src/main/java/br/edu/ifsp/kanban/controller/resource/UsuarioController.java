@@ -23,6 +23,12 @@ public class UsuarioController {
         return usuarioService.buscarPorId(id);
     }
 
+    // NOVO ENDPOINT para buscar usuário pelo email
+    @GetMapping("/email/{email}")
+    public UsuarioResponseDto getByEmail(@PathVariable String email) {
+        return usuarioService.buscarPorEmail(email);
+    }
+
     @PutMapping("/{id}")
     public UsuarioResponseDto atualizar(@PathVariable Integer id,
                                         @RequestBody UsuarioRequestDto dto) {
@@ -34,4 +40,3 @@ public class UsuarioController {
         usuarioService.deletar(id);
     }
 }
-
