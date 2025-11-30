@@ -16,49 +16,6 @@ public class UsuarioResponseDto {
     private Integer idUsuario;
     private String nome;
     private String email;
-    private List<PaginaUsuarioResponseDto> paginas;
-/*
-    // Construtores
-    public UsuarioResponseDto() {}
+    private List<PaginaResumoResponseDto> paginas;
 
-    public UsuarioResponseDto(Integer idUsuario, String nome, List<PaginaUsuarioResponseDto> paginas, String email) {
-        this.idUsuario = idUsuario;
-        this.nome = nome;
-        this.paginas = paginas;
-        this.email = email;
-    }
-
-    // Getters e Setters
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<PaginaUsuarioResponseDto> getPaginas() {
-        return paginas;
-    }
-
-    public void setPaginas(List<PaginaUsuarioResponseDto> paginas) {
-        this.paginas = paginas;
-    }
- */
 }

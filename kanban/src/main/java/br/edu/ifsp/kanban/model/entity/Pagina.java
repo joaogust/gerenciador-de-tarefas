@@ -28,48 +28,9 @@ public class Pagina {
 
     // Relacionamento com Bloco
     @OneToMany(mappedBy = "pagina")
-    private List<Bloco> blocos = new ArrayList<>();
+    private Set<Bloco> blocos;
 
     // Relacionamento com PaginaUsuario
     @OneToMany(mappedBy = "pagina")
-    private Set<PaginaUsuario> usuarios = new HashSet<>();
-/*
-    // Construtor vazio
-    public Pagina() {}
-
-    // Getters e Setters
-
-    public Integer getIdPagina() {
-        return idPagina;
-    }
-
-    public void setIdPagina(Integer idPagina) {
-        this.idPagina = idPagina;
-    }
-
-    public Set<PaginaUsuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(Set<PaginaUsuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Bloco> getBlocos() {
-        return blocos;
-    }
-
-    public void setBlocos(List<Bloco> blocos) {
-        this.blocos = blocos;
-    }
-
- */
+    private Set<PaginaUsuario> usuarios;
 }

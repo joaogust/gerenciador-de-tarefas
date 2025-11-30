@@ -10,16 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaginaRequestDto {
+    private Integer idPagina;
     private String nome;
-/*
-    public PaginaRequestDto() {}
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
- */
 }

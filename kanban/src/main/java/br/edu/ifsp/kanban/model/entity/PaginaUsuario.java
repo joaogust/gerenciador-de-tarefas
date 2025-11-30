@@ -35,48 +35,4 @@ public class PaginaUsuario {
     @MapsId("idUsuario")
     @JoinColumn(name = "id_usuario", insertable = false, updatable = false)
     private Usuario usuario;
-/*
-    // Contrutores para a chave composta
-    public PaginaUsuario() {}
-
-    public PaginaUsuario(Pagina pagina, Usuario usuario, String papel) {
-        this.pagina = pagina;
-        this.usuario = usuario;
-        this.papel = papel;
-        this.idPaginaUsuario = new PaginaUsuarioId(pagina.getIdPagina(), usuario.getIdUsuario());
-    }
-
-    public PaginaUsuarioId getIdPaginaUsuario() {
-        return idPaginaUsuario;
-    }
-
-    public void setIdPaginaUsuario(PaginaUsuarioId idPaginaUsuario) {
-        this.idPaginaUsuario = idPaginaUsuario;
-    }
-
-    public String getPapel() {
-        return papel;
-    }
-
-    public void setPapel(String papel) {
-        this.papel = papel;
-    }
-
-    public Pagina getPagina() {
-        return pagina;
-    }
-
-    public void setPagina(Pagina pagina) {
-        this.pagina = pagina;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
- */
 }

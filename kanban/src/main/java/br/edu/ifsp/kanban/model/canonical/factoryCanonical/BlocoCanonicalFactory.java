@@ -5,10 +5,11 @@ import br.edu.ifsp.kanban.model.canonical.PaginaCanonical;
 import br.edu.ifsp.kanban.model.entity.Bloco;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class BlocoCanonicalFactory {
-    public static BlocoCanonical entityToCanonico(Bloco entity) {
+    public static BlocoCanonical entityToCanonical(Bloco entity) {
         if (entity == null) return null;
 
         BlocoCanonical c = new BlocoCanonical();
@@ -41,10 +42,10 @@ public class BlocoCanonicalFactory {
         return b;
     }
 
-    public static List<BlocoCanonical> entityListToCanonicoList(List<Bloco> entities) {
+    public static List<BlocoCanonical> entityListToCanonicalList(Collection<Bloco> entities) {
         if (entities == null) return null;
         List<BlocoCanonical> list = new ArrayList<>();
-        for (Bloco e : entities) list.add(entityToCanonico(e));
+        for (Bloco e : entities) list.add(entityToCanonical(e));
         return list;
     }
 

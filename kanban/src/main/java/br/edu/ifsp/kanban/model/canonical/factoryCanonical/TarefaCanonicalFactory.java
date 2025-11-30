@@ -5,6 +5,7 @@ import br.edu.ifsp.kanban.model.canonical.TarefaCanonical;
 import br.edu.ifsp.kanban.model.entity.Tarefa;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TarefaCanonicalFactory {
@@ -37,7 +38,7 @@ public class TarefaCanonicalFactory {
         return tarefa;
     }
 
-    public static List<TarefaCanonical> entityListToCanonicalList(List<Tarefa> entities) {
+    public static List<TarefaCanonical> entityListToCanonicalList(Collection<Tarefa> entities) {
         if (entities == null) return null;
 
         List<TarefaCanonical> list = new ArrayList<>();

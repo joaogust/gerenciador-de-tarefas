@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BlocoRequestDto {
+    private Integer idPagina;
     private String nome;
     private String estado;
-    private Integer idPagina;
 
 }

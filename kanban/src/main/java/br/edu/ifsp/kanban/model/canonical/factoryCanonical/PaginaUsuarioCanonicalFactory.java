@@ -7,9 +7,11 @@ import br.edu.ifsp.kanban.model.entity.PaginaUsuario;
 import br.edu.ifsp.kanban.model.entity.PaginaUsuarioId;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class PaginaUsuarioCanonicalFactory {
+
     public static PaginaUsuarioCanonical entityToCanonical(PaginaUsuario entity) {
         if (entity == null) return null;
 
@@ -22,9 +24,11 @@ public class PaginaUsuarioCanonicalFactory {
             UsuarioCanonical u = new UsuarioCanonical();
             u.setIdUsuario(entity.getUsuario().getIdUsuario());
             u.setNome(entity.getUsuario().getNome());
+            u.setEmail(entity.getUsuario().getEmail());
             c.setUsuario(u);
         }
 
+        // Popula PaginaCanonical
         if (entity.getPagina() != null) {
             PaginaCanonical p = new PaginaCanonical();
             p.setIdPagina(entity.getPagina().getIdPagina());
@@ -45,10 +49,13 @@ public class PaginaUsuarioCanonicalFactory {
         return entity;
     }
 
-    public static List<PaginaUsuarioCanonical> entityListToCanonicalList(List<PaginaUsuario> entities) {
+    public static List<PaginaUsuarioCanonical> entityListToCanonicalList(Collection<PaginaUsuario> entities) {
         if (entities == null) return null;
+
         List<PaginaUsuarioCanonical> list = new ArrayList<>();
-        for (PaginaUsuario e : entities) list.add(entityToCanonical(e));
+        for (PaginaUsuario e : entities) {
+            list.add(entityToCanonical(e));
+        }
         return list;
     }
 
