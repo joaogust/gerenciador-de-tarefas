@@ -5,21 +5,22 @@ import br.edu.ifsp.kanban.model.entity.Bloco;
 import br.edu.ifsp.kanban.model.canonical.factoryCanonical.BlocoCanonicalFactory;
 import br.edu.ifsp.kanban.model.entity.Pagina;
 import br.edu.ifsp.kanban.repository.BlocoRepository;
+import br.edu.ifsp.kanban.repository.TarefaRepository;
 import br.edu.ifsp.kanban.utils.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class BlocoService {
 
     private final BlocoRepository repository;
     private final PaginaService paginaService;
+    private final TarefaRepository tarefaRepository;
 
-    public BlocoService(BlocoRepository repository, PaginaService paginaService) {
+    public BlocoService(BlocoRepository repository, PaginaService paginaService, TarefaRepository tarefaRepository) {
         this.repository = repository;
         this.paginaService = paginaService;
+        this.tarefaRepository = tarefaRepository;
     }
 
     public Bloco buscaPorId(Integer idBloco) {
@@ -33,10 +34,10 @@ public class BlocoService {
     public BlocoCanonical buscaBlocoPorId(Integer idBloco) {
         Validator.erroSeNulo(idBloco, "Um id deve ser informado");
 
-        Bloco canonical = buscaPorId(idBloco);
-        Validator.erroSeNulo(canonical, "Bloco não encontrado.");
+        Bloco bloco = buscaPorId(idBloco);
+        Validator.erroSeNulo(bloco, "Bloco não encontrado.");
 
-        return BlocoCanonicalFactory.entityToCanonical(canonical);
+        return BlocoCanonicalFactory.entityToCanonical(bloco);
     }
 
     public Bloco save(Bloco bloco) {
@@ -54,12 +55,14 @@ public class BlocoService {
             throw new RuntimeException("Erro ao deletar bloco.", e);
         }
     }
+
     public BlocoCanonical criarBloco(BlocoCanonical novoBloco) {
 
         Validator.erroSeNulo(novoBloco, "Dados insuficientes para criar um bloco.");
         Validator.erroSeNulo(novoBloco.getNome(), "Nome é obrigatório.");
         Validator.erroSeNulo(novoBloco.getEstado(), "Estado é obrigatório.");
         Validator.erroSeNulo(novoBloco.getIdPagina(), "Uma página deve ser informada.");
+
 
         Pagina pagina = paginaService.buscaPorId(novoBloco.getIdPagina());
         Validator.erroSeNulo(pagina, "Página não encontrada.");
@@ -89,12 +92,13 @@ public class BlocoService {
         return BlocoCanonicalFactory.entityToCanonical(salvo);
     }
 
-
+    @Transactional
     public void deletarBloco(Integer idBloco) {
         BlocoCanonical bloco = buscaBlocoPorId(idBloco);
-        if (bloco != null) {
-            delete(idBloco);
-        }
+        Validator.erroSeNulo(bloco, "Bloco não encontrado para deleção.");
+
+        tarefaRepository.deleteByBlocoId(idBloco);
+
+        delete(idBloco);
     }
 }
-

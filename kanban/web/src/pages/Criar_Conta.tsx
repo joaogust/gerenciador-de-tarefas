@@ -28,11 +28,7 @@ export function Criar_Conta() {
       const response = await fetch(`${API_BASE_URL}/usuario`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome,
-          email,
-          senha
-        })
+        body: JSON.stringify({ nome, email, senha })
       });
 
       if (!response.ok) {
@@ -41,7 +37,9 @@ export function Criar_Conta() {
       }
 
       setSuccess('Conta criada com sucesso! Redirecionando para login...');
-      setTimeout(() => navigate('/'), 1500); // redireciona após 1.5s
+      
+      // Redireciona após 1.5s
+      setTimeout(() => navigate('/'), 1500);
 
     } catch (err: any) {
       setError(err.message);
@@ -121,7 +119,9 @@ export function Criar_Conta() {
             Criar Conta
           </button>
           
-          <Link to="/">Entrar</Link>
+          <div className="text-center">
+            <Link to="/">Já tem conta? Entrar</Link>
+          </div>
           
           <p className="text-body-secondary mt-5 mb-3">© 2024-2025</p>
         </form>

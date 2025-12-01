@@ -1,4 +1,4 @@
-/* src/pages/Kanban.css */
+/* src/pages/KanbanBoard.css */
 
 .kanban-container {
   display: flex;
@@ -20,17 +20,25 @@
     z-index: 5; /* Abaixo do header e menus, mas acima dos cards */
 }
 
-/* --- Header --- */
+/* --- Header da Página --- */
 .board-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
   padding: 1rem 2rem;
   background-color: rgba(33, 37, 41, 0.95);
   border-bottom: 1px solid #495057;
   height: 70px;
   position: relative;
-  z-index: 30; /* Garante que o header fique acima do dropdown */
+  z-index: 30; /* Garante que o header fique acima do dropdowns */
+}
+
+/* Agrupa o título da página e o botão de ação */
+.page-header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    position: relative; 
 }
 
 .board-header h2 {
@@ -43,24 +51,49 @@
   gap: 10px;
 }
 
-.btn-voltar {
-  background: none;
-  border: 1px solid #495057;
-  color: #adb5bd;
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Botão de Ação da Página */
+.btn-action-page {
+    background: none;
+    border: none;
+    color: #adb5bd;
+    cursor: pointer;
+    padding: 8px; 
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+    line-height: 1; 
+    font-size: 1.2rem;
 }
 
-.btn-voltar:hover {
-  background-color: #343a40;
-  color: #fff;
-  border-color: #6c757d;
+.btn-action-page:hover {
+    color: #fff;
+    background-color: #343a40;
+}
+
+/* Placeholder para o ícone de pontos da página */
+.icon-dots-page::before { 
+    content: '•••'; 
+    font-size: 0.9rem; 
+    font-weight: bold;
+}
+
+/* Estilo para o botão de exclusão da página */
+.btn-delete-page {
+    color: #fa5252 !important; /* Cor vermelha para indicar risco */
+}
+.btn-delete-page:hover {
+    background-color: #fa5252 !important; 
+    color: #fff !important;
+}
+
+/* Ajuste do menu dropdown da página */
+.page-actions-dropdown {
+    position: relative;
+}
+.page-dropdown {
+    top: 35px; /* Ajuste para não ficar colado */
+    right: auto;
+    left: 0;
+    z-index: 40; /* Acima de tudo, inclusive do header */
 }
 
 /* --- Área das Colunas (Scroll Horizontal e Centralização) --- */
@@ -71,8 +104,6 @@
   height: calc(100vh - 70px); /* Altura total menos o header */
   padding: 1.5rem;
   align-items: flex-start; /* Colunas alinhadas no topo */
-  
-  /* Centraliza as colunas se houver espaço */
   justify-content: center; 
 }
 
@@ -142,44 +173,114 @@
   border-radius: 3px;
 }
 
-/* Estilo para o título do Bloco */
-.task-list h4 {
-    font-size: 0.9rem;
-    color: #adb5bd;
-    margin-top: 5px;
-    margin-bottom: 5px;
+/* --- Ações do Bloco (Header com Botões) --- */
+.block-header-with-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; 
     padding-bottom: 5px;
-    border-bottom: 1px dashed #373b3e; /* Linha tracejada sutil */
+    border-bottom: 1px dashed #373b3e; 
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
-/* --- Cartão da Tarefa --- */
+/* Estilo para o título do Bloco */
+.block-header-with-actions h4 {
+    font-size: 0.9rem;
+    color: #adb5bd;
+    margin: 0;
+    padding: 0;
+    border: none; 
+    flex-grow: 1;
+    cursor: default;
+}
+
+/* Botão de Ação do Bloco (três pontinhos) */
+.btn-action-block {
+    background: none;
+    border: none;
+    color: #adb5bd;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+    line-height: 1;
+}
+
+.btn-action-block:hover {
+    color: #fff;
+    background-color: #495057;
+}
+
+/* Container do Dropdown de Ações do Bloco */
+.block-actions-dropdown {
+    position: relative;
+    margin-right: -5px; 
+}
+
+/* Estilo para o menu dropdown do bloco (posição) */
+.block-dropdown {
+    top: 100%;
+    right: 0;
+    left: auto; /* Garante que ele se ancore à direita do botão */
+    z-index: 35; 
+}
+
+
+/* --- Botão Adicionar Bloco (Vazio) --- */
+.add-block-container {
+    padding: 1rem 0 0; 
+}
+
+.btn-add-block {
+    width: 100%;
+    background-color: #2b3035; /* Cor do fundo da coluna */
+    border: 1px solid #454d55;
+    color: #adb5bd;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn-add-block:hover {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+
+/* --- Estilos de Card de Tarefa e Dropdowns (Reusados/Ajustados) --- */
+
+/* Cartão da Tarefa */
 .kanban-card {
-  background-color: #343a40; /* Um pouco mais claro que a coluna */
+  background-color: #343a40; 
   border: 1px solid #454d55;
   border-radius: 6px;
   padding: 12px;
-  /* Espaço extra no topo/direita para os botões de ação */
   padding-right: 45px;
   padding-top: 12px; 
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s;
-  position: relative; /* Importante para o posicionamento dos botões de ação */
+  position: relative; 
 }
 
 .kanban-card:hover {
   transform: translateY(-2px);
-  border-color: #0d6efd; /* Azul ao passar o mouse */
+  border-color: #0d6efd; 
 }
 
-/* Garante que o conteúdo e as ações fiquem na mesma linha (conteúdo ocupa o máximo) */
+/* Garante que o conteúdo e as ações fiquem na mesma linha */
 .card-content {
   display: flex;
   align-items: flex-start;
   gap: 10px;
 }
 
-/* Garante que o texto da tarefa cresça, empurrando as ações para a direita */
+/* Garante que o texto da tarefa cresça */
 .card-content .card-text {
     flex-grow: 1;
 }
@@ -189,10 +290,10 @@
     display: flex;
     gap: 4px;
     align-items: center;
-    position: absolute; /* Posicionamento no topo do card */
+    position: absolute; 
     top: 8px;
     right: 8px;
-    z-index: 10; /* Garante que fiquem acima de outros elementos do card */
+    z-index: 100; 
 }
 
 /* Estilo Base dos Botões de Ação (Ícones) */
@@ -204,7 +305,7 @@
     padding: 4px;
     border-radius: 4px;
     transition: color 0.2s, background-color 0.2s;
-    line-height: 1; /* Alinha o ícone */
+    line-height: 1; 
 }
 
 .btn-action:hover {
@@ -214,74 +315,106 @@
 
 /* Estilo Placeholder para Ícones (simula Font Awesome) */
 .icon-dots::before { content: '•••'; font-size: 0.9rem; font-weight: bold; }
-.icon-chevron-down::before { content: '⌄'; font-size: 1rem; } /* Símbolo para seta */
+.icon-chevron-down::before { content: '⌄'; font-size: 1rem; } 
 
 /* Gira o ícone do dropdown quando estiver aberto */
 .icon-chevron-down {
     transition: transform 0.2s;
-    display: block; /* Para permitir a rotação */
+    display: block; 
 }
 .icon-chevron-down.is-open {
     transform: rotate(180deg);
 }
 
-/* --- Dropdown de Mover Tarefa (Menu) --- */
+/* --- Dropdown (Menu Base) --- */
 .move-dropdown {
-    position: relative; /* O menu será posicionado em relação a este container */
+    position: relative; 
 }
 
+/* --- Dropdown (Menu Base) - CORRIGIDO --- */
 .dropdown-menu {
     position: absolute;
-    top: 100%; /* Abaixo do botão */
-    right: 0;
-    margin-top: 5px; /* Pequeno espaçamento */
-    min-width: 150px;
-    background-color: #343a40; /* Cor do card, como fundo do menu */
+    /* Ponto de anexo: 100% da altura do elemento pai + 5px de margem */
+    top: 100%; 
+    right: 0; /* Ancorado à direita do botão de ação */
+    margin-top: 5px; 
+    
+    /* Z-INDEX CRÍTICO: Garante que o menu fique acima de todos os cards/colunas */
+    z-index: 1000; 
+    
+    min-width: 180px; 
+    background-color: #343a40; 
     border: 1px solid #454d55;
     border-radius: 6px;
-    padding: 8px;
+    
+    /* Padding interno do menu deve ser zero nas laterais */
+    padding: 5px 0; /* Ajuste o padding vertical (5px) */
+    
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-    z-index: 20; /* Garante que fique acima de tudo no card */
+    
     display: flex;
     flex-direction: column;
+    
+    /* Adicionado para garantir que todas as opções sejam exibidas, se houver muitas */
+    max-height: 400px; 
+    overflow-y: auto; 
 }
 
+/* Título 'Mover para:' (Melhorado para ser um header de seção) */
 .dropdown-menu h6 {
-    margin: 0 0 5px 0;
-    padding: 0 4px;
+    /* Padding lateral para que o texto comece alinhado aos botões */
+    margin: 5px 10px 5px 10px; 
+    padding: 0 0 4px 0;
     color: #adb5bd;
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
+    
+    /* Garante que o divisor de texto se estenda por toda a largura do conteúdo */
     border-bottom: 1px solid #454d55;
     padding-bottom: 4px;
 }
 
+/* Botões do Dropdown (Itens de Ação) */
 .btn-dropdown-item {
+    display: block; /* Garante que o botão ocupe toda a largura do menu */
+    width: 100%;
+    
     background: none;
     border: none;
     text-align: left;
     color: #e9ecef;
-    padding: 6px 4px;
+    
+    /* Padding lateral (10px) e vertical (6px) para uma boa área de clique */
+    padding: 6px 10px; 
     margin-top: 2px;
-    border-radius: 4px;
+    
+    border-radius: 0; /* Remove o border-radius para que o hover ocupe toda a largura */
     cursor: pointer;
-    transition: background-color 0.1s;
+    transition: background-color 0.1s, color 0.1s;
     font-size: 0.85rem;
 }
 
 .btn-dropdown-item:hover {
-    background-color: #0d6efd; /* Azul para destaque no hover */
+    background-color: #0d6efd; 
     color: #fff;
 }
 
-/* Checkbox customizado (simples) */
+/* Divisor Horizontal (Adicionar esta regra e usar a tag <hr> no JSX) */
+.dropdown-menu hr {
+    border: 0;
+    height: 1px;
+    background-color: #454d55; /* Cor cinza escuro para a linha divisória */
+    margin: 5px 0; /* Margem vertical para separação */
+}
+
+/* Checkbox customizado (simples) - Nenhuma alteração essencial, mantido */
 .card-content input[type="checkbox"] {
-  margin-top: 5px;
-  accent-color: #0d6efd;
-  cursor: pointer;
-  width: 16px;
-  height: 16px;
+    margin-top: 5px;
+    accent-color: #0d6efd;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
 }
 
 .card-text {
@@ -298,9 +431,9 @@
 
 /* Botão Adicionar Tarefa */
 .add-task-container {
-  padding: 1rem 0 0; /* Ajustado padding superior */
+  padding: 1rem 0 0; 
   border-top: 1px solid #373b3e;
-  margin-top: 10px; /* Adiciona um espaço acima do separador */
+  margin-top: 10px; 
 }
 
 .btn-add-task {

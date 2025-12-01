@@ -28,7 +28,7 @@ export function Login() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('email', email);
 
-      navigate('/home');
+      navigate('/home'); // redireciona para home
     } catch (err: any) {
       setError(err.message);
     }
@@ -41,7 +41,7 @@ export function Login() {
           <img src={logo} className="mb-4" height="70" width="70" alt="Logo CopyOn" />
           <h1 className="h3 mb-3 fw-normal">Entre</h1>
 
-          <div className="form-floating">
+          <div className="form-floating mb-3">
             <input
               type="email"
               className="form-control"
@@ -54,7 +54,7 @@ export function Login() {
             <label htmlFor="floatingInput">E-mail</label>
           </div>
 
-          <div className="form-floating">
+          <div className="form-floating mb-3">
             <input
               type="password"
               className="form-control"
@@ -74,7 +74,8 @@ export function Login() {
           </button>
 
           <div className="text-center">
-            <Link to="/criar_conta">Criar Conta</Link>
+            {/* Corrigido para usar o path correto da rota */}
+            <Link to="/criar-conta">Criar Conta</Link>
           </div>
         </form>
       </main>
